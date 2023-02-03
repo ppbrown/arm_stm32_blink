@@ -8,7 +8,12 @@
 	 * STI Nucleo-F401RE ARM cpu (Cortex M4 series)
 	 *
 	\********************************************************************/
-	
+
+	/* Future note: according to the board docs,
+	 * "the user button is connected to the I/O PC13 (pin 2)  ..."
+	 * aka GPIOC13, 
+	 */
+microcontroller.
 
 	
 // ******* Register definitions *******
@@ -49,6 +54,7 @@
 	.equ	GPIOF, 0x40021400	// GPIO port F (also "Base")
 
 	.equ	GPIO5,	(1 << 5)	// GPIO ports, pin5
+	.equ	GPIO13,	(1 << 13)	// GPIO ports, pin5
 
 	.equ	GPIO_MODE_INUT,	  0x0
 	.equ	GPIO_MODE_OUTPUT, 0x1

@@ -7,13 +7,13 @@ This demo is specifically coded on a stm32f401re CPU,
 (Cortex M4)
 Also known as Nucleo-F-401RE, sold by
 ST Microelectronics
-  https://www.st.com/en/microcontrollers-microprocessors/stm32f4-series.html
-  https://www.st.com/en/microcontrollers-microprocessors/stm32f401.html
-  https://www.st.com/en/evaluation-tools/nucleo-f401re.html
+* https://www.st.com/en/microcontrollers-microprocessors/stm32f4-series.html
+* https://www.st.com/en/microcontrollers-microprocessors/stm32f401.html
+* https://www.st.com/en/evaluation-tools/nucleo-f401re.html
 
 There are now multiple choices for C-code development, for ARM chips.
 "Keil", or STM's "CubeIDE" are just two of them. However, they arent
-friendly to Assembly Language development
+friendly to Assembly Language development.
 Keil is the more usable in that sense, but officially, it is ms-windows only.
 
 This project is sharing an example of a pure GNU-toolchain based solution

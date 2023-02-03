@@ -5,7 +5,7 @@ Embedded ARM Assembly Programming
 
 This demo is specifically coded on a stm32f401re CPU,
 (Cortex M4)
-Also known as Nucleo-F-401RE, sold by
+shipped on a Nucleo-F-401RE board with an LED, sold by
 ST Microelectronics
 * https://www.st.com/en/microcontrollers-microprocessors/stm32f4-series.html
 * https://www.st.com/en/microcontrollers-microprocessors/stm32f401.html

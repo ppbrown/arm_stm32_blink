@@ -54,7 +54,7 @@ microcontroller.
 	.equ	GPIOF, 0x40021400	// GPIO port F (also "Base")
 
 	.equ	GPIO5,	(1 << 5)	// GPIO ports, pin5
-	.equ	GPIO13,	(1 << 13)	// GPIO ports, pin5
+	.equ	GPIO13,	(1 << 13)	// GPIO ports, pin13
 
 	.equ	GPIO_MODE_INUT,	  0x0
 	.equ	GPIO_MODE_OUTPUT, 0x1

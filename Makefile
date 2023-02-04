@@ -1,8 +1,6 @@
 
 CPU=stm32f4
 #CPU=stm32l4
-# if you change CPU here, you also have to change the .include
-# in stm32f4_blink.s
 
 
 CFLAGS=-g  -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16

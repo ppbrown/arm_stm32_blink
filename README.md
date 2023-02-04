@@ -11,6 +11,8 @@ ST Microelectronics
 * https://www.st.com/en/microcontrollers-microprocessors/stm32f401.html
 * https://www.st.com/en/evaluation-tools/nucleo-f401re.html
 
+(Note: now also supports Nucleo-L476RG, which is stm32l476 based)
+
 There are now multiple choices for C-code development, for ARM chips.
 "Keil", or STM's "CubeIDE" are just two of them. However, they arent
 friendly to Assembly Language development.

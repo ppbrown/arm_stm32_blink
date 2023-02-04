@@ -13,7 +13,6 @@
 	 * "the user button is connected to the I/O PC13 (pin 2)  ..."
 	 * aka GPIOC13, 
 	 */
-microcontroller.
 
 	
 // ******* Register definitions *******

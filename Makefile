@@ -1,4 +1,6 @@
 
+# To change the value, you can either edit this file,
+# or just make with   "make CPU=stm32l4"
 CPU=stm32f4
 #CPU=stm32l4
 

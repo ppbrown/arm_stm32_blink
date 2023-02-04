@@ -41,7 +41,7 @@
 	// rcc_periph_clock_enable(RCC_GPIOA);
         // _RCC_REG(RCC_GPIOA) |= _RCC_BIT(RCC_GPIOA);
 
-	.equ	RCC_REG_GPIOA, RCC_GPIOA    // full reduces to RCC_BASE + AHB2ENR_OFFSET, which IS GPIOA
+	.equ	RCC_REG_GPIOA, RCC_BASE + AHB2ENR_OFFSET
 	.equ	RCC_BIT_GPIOA, 1 << ((RCC_GPIOA) & 0x1f)
 
 

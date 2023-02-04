@@ -42,7 +42,7 @@
         // _RCC_REG(RCC_GPIOA) |= _RCC_BIT(RCC_GPIOA);
 
 	.equ	RCC_REG_GPIOA, RCC_BASE + AHB1ENR_OFFSET
-	.equ	RCC_BIT_GPIOA, 1 << ((AHB1ENR_OFFSET <<5) & 0x1f)
+	.equ	RCC_BIT_GPIOA, 1 << ((RCC_GPIOA) & 0x1f)
 
 
 

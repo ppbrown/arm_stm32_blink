@@ -1,5 +1,6 @@
 
 CPU=stm32f4
+#CPU=stm32l4
 # if you change CPU here, you also have to change the .include
 # in stm32f4_blink.s
 
@@ -12,6 +13,8 @@ CFLAGS=-g  -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16
 LDFILE=-T$(CPU).ld
 #LDFILE=-Tnucleo-f401re.ld
 
+all:	$(CPU)_blink.elf
+
 
 # The ASM files are so small, no point in having an intermediate
 # compile step for .o
@@ -20,6 +23,11 @@ stm32f4_blink.elf: Makefile stm32f4_blink.s $(CPU)_inc.s $(CPU)_base.s $(CPU).ld
 	arm-none-eabi-gcc --static -nostartfiles $(LDFILE) \
 	-mthumb $(CFLAGS)  $(LDFLAGS) \
 	stm32f4_blink.s $(CPU)_base.s -o $@
+
+stm32l4_blink.elf: Makefile stm32l4_blink.s $(CPU)_inc.s $(CPU)_base.s $(CPU).ld 
+	arm-none-eabi-gcc --static -nostartfiles $(LDFILE) \
+	-mthumb $(CFLAGS)  $(LDFLAGS) \
+	stm32l4_blink.s $(CPU)_base.s -o $@
 
 
 

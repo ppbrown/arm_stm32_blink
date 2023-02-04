@@ -18,11 +18,13 @@
 // ******* Register definitions *******
 
 	.equ	PERIPH_BASE, 0x40000000U
-	.equ	PERIPH_BASE_AHB1,PERIPH_BASE + 0x20000
+	.equ	PERIPH_BASE_AHB1, PERIPH_BASE + 0x20000
+	.equ	PERIPH_BASE_AHB2, 0x50000000U
+	
 	.equ	RCC_BASE, PERIPH_BASE_AHB1 + 0x3800
 
-	
-	.equ	RCC_AHB1ENR,	0x40023830	//Clock control for AHB1 peripherals (includes GPIO)
+	//Clock control for AHB1 peripherals (includes GPIO)
+	.equ	RCC_AHB1ENR,	(RCC_BASE + 0x30)
 
 
 	// #define _REG_BIT(base, bit)		(((base) << 5) + (bit))
@@ -45,12 +47,14 @@
 	/*   ......   GPIO Section .......                                       */
 	/*************************************************************************/
 	
-	.equ	GPIOA, 0x40020000	// GPIO port A (also "Base")
-	.equ	GPIOB, 0x40020400	// GPIO port B (also "Base")
-	.equ	GPIOC, 0x40020800	// GPIO port C (also "Base")
-	.equ	GPIOD, 0x40020C00	// GPIO port D (also "Base")
-	.equ	GPIOE, 0x40021000	// GPIO port E (also "Base")
-	.equ	GPIOF, 0x40021400	// GPIO port F (also "Base")
+	.equ	GPIO_BASE, PERIPH_BASE_AHB1	// GPIO port A (also "Base")
+
+	.equ	GPIOA, GPIO_BASE + 0x000	// GPIO port A (also "GPIO_PORT_A_BASE")
+	.equ	GPIOB, GPIO_BASE + 0x400	// GPIO port B (also "Base")
+	.equ	GPIOC, GPIO_BASE + 0x800	// GPIO port C (also "Base")
+	.equ	GPIOD, GPIO_BASE + 0xC00	// GPIO port D (also "Base")
+	.equ	GPIOE, GPIO_BASE + 0x1000	// GPIO port E (also "Base")
+	.equ	GPIOF, GPIO_BASE + 0x1400	// GPIO port F (also "Base")
 
 	.equ	GPIO5,	(1 << 5)	// GPIO ports, pin5
 	.equ	GPIO13,	(1 << 13)	// GPIO ports, pin13
@@ -71,22 +75,22 @@
 
 
 //GPIO-A control registers
-	.equ	GPIOA_MODER,	0x40020000	//set GPIO pin mode as Input/Output/Analog
-	.equ	GPIOA_OTYPER,	0x40020004	//Set GPIO pin type as push-pull or open drain
-	.equ	GPIOA_OSPEEDR,	0x40020008	//Set GPIO pin switching speed
-	.equ	GPIOA_PUPDR,	0x4002000C	//Set GPIO pin pull-up/pull-down
-	.equ	GPIOA_ODR,  0x40020014	//GPIO pin output data
-	.equ	GPIOA_BSRR, 0x40020018	// Bit Set/Reset
+	.equ	GPIOA_MODER,	GPIOA + 0x00	//set GPIO pin mode as Input/Output/Analog
+	.equ	GPIOA_OTYPER,	GPIOA + 0x04 	//Set GPIO pin type as push-pull or open drain
+	.equ	GPIOA_OSPEEDR,	GPIOA + 0x08	//Set GPIO pin switching speed
+	.equ	GPIOA_PUPDR,	GPIOA + 0x0C	//Set GPIO pin pull-up/pull-down
+	.equ	GPIOA_ODR,	GPIOA + 0x14	//GPIO pin output data
+	.equ	GPIOA_BSRR,	GPIOA + 0x18	// Bit Set/Reset
 
 
 //GPIO-B control registers
-	.equ	GPIOB_MODER,	0x40020400	//set GPIO pin mode as Input/Output/Analog
+	.equ	GPIOB_MODER,	GPIOB + 0x00	//set GPIO pin mode as Input/Output/Analog
 	// ...
 //GPIO-C control registers
-	.equ	GPIOC_MODER,	0x40020800	//set GPIO pin mode as Input/Output/Analog
+	.equ	GPIOC_MODER,	GPIOC + 0x00	//set GPIO pin mode as Input/Output/Analog
 	// ...
 	
 //GPIO-D control registers
-	.equ	GPIOD_MODER,	0x40020C00	//set GPIO pin mode as Input/Output/Analog
+	.equ	GPIOD_MODER,	GPIOD + 0x00	//set GPIO pin mode as Input/Output/Analog
 	// ...
 

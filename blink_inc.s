@@ -1,6 +1,16 @@
-// This file is ".S" instead of ".s" so we can use #define
-	
-	/* This code tweaked fro stm32f4_blink.s
+	/* This code inspired by the blink demo at
+	 *  https://github.com/jrsa/stm32f4_blink
+	 * Much thanks to the author there.
+	 * The main difference is that that code is C-based, and
+	 * leans heavily on the "libopencm3" library at
+	 *  https://github.com/libopencm3/libopencm3/
+	 *
+	 * In contrast, the goal of this code is to deliver a pure
+	 * ASM based, stand-alone executable
+	 *
+	 * Going from zero, to something functional in ASM is an extreme sport.
+	 * Instead, I developed this by swapping C-functions with ASM routines,
+	 * one by one.
 	 * - Philip Brown, 2023
 	*/
 
@@ -22,16 +32,6 @@
 	 *
 	 */
 
-/* Random note: you can name the file with ".S" instead of ".s" to use preprocessing */
-
-// What kind of code is here?
-	.syntax unified
-	.cpu cortex-m4
-	.fpu fpv4-sp-d16
-
-	.thumb // Oddly, this allows NON-thumb instructions (ie: standard ARM)
-
-	.include "stm32l4_inc.s"	// If you change this, also change CPU in Makefile
 
 	.equ	DELAY_INTERVAL,	0x186004
 
@@ -123,5 +123,3 @@ reset_handler:
 	b	main
 
 	
-gpioa_bsrr_addr:
-	.word 0x40020018

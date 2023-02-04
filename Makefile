@@ -13,34 +13,32 @@ CFLAGS=-g  -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16
 LDFILE=-T$(CPU).ld
 #LDFILE=-Tnucleo-f401re.ld
 
-all:	$(CPU)_blink.elf
+all:	blink_$(CPU).elf
 
 
 # The ASM files are so small, no point in having an intermediate
 # compile step for .o
 
-stm32f4_blink.elf: Makefile stm32f4_blink.s $(CPU)_inc.s $(CPU)_base.s $(CPU).ld 
+blink_$(CPU).elf: Makefile blink_$(CPU).s regs_$(CPU)_inc.s startup_$(CPU).s $(CPU).ld 
 	arm-none-eabi-gcc --static -nostartfiles $(LDFILE) \
 	-mthumb $(CFLAGS)  $(LDFLAGS) \
-	stm32f4_blink.s $(CPU)_base.s -o $@
-
-stm32l4_blink.elf: Makefile stm32l4_blink.s $(CPU)_inc.s $(CPU)_base.s $(CPU).ld 
-	arm-none-eabi-gcc --static -nostartfiles $(LDFILE) \
-	-mthumb $(CFLAGS)  $(LDFLAGS) \
-	stm32l4_blink.s $(CPU)_base.s -o $@
+	blink_$(CPU).s startup_$(CPU).s -o $@
 
 
 
 # When I was doing my original port from other people's C code,
-# this was really useful: It disassembled the C code to ASM,
+# this dump was really useful: It disassembled the C code to ASM,
 # so I could see how they handled some things at the ASM level.
 
-#stm32f4_blink.dump: stm32f4_blink.elf stm32f4_blink.s main.c
-#	arm-none-eabi-objdump -h -S  stm32f4_blink.elf  > "stm32f4_blink.dump"
+#blink_$(CPU).dump: blink_$(CPU).elf blink_$(CPU).s main.c
+#	arm-none-eabi-objdump -h -S  blink_$(CPU).elf  > $@
 
-stm32f4_blink.bin: stm32f4_blink.elf
-	arm-none-eabi-objcopy  -O binary  stm32f4_blink.elf  "stm32f4_blink.bin"
+
+# this is in theory for direct loads with st-flash.
+# however, it is missing something to make it work that way.
+blink_$(CPU).bin: blink_$(CPU).elf
+	arm-none-eabi-objcopy  -O binary  blink_$(CPU).elf  $@
 
 
 clean:
-	rm -f stm32f4_blink.elf stm32f4_blink.dump stm32f4_blink.bin
+	rm -f *.elf *.dump *.bin

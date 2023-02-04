@@ -50,7 +50,7 @@
 	/*   ......   GPIO Section .......                                       */
 	/*************************************************************************/
 	
-	.equ	GPIO_BASE, PERIPH_BASE_AHB1	// GPIO port A (also "Base")
+	.equ	GPIO_BASE, PERIPH_BASE_AHB1
 
 	.equ	GPIOA, GPIO_BASE + 0x000	// GPIO port A (also "GPIO_PORT_A_BASE")
 	.equ	GPIOB, GPIO_BASE + 0x400	// GPIO port B (also "Base")

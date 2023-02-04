@@ -29,7 +29,7 @@ reset_handler:
 	b	main
 
 vector_table:
-  .word  0x20005000  // not really sure what the best value to set here is
+  .word  _stack  // provided in stm32f4.ld
   .word  reset_handler
   .word  // NMI_Handler
   .word  // HardFault_Handler

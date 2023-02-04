@@ -28,10 +28,11 @@ Additionally, it is targetted for Linux as the developer desktop
 
 In this directory you should find the following files:
 
-* stm32f4_blink.s - the main code of interest
-* stm32f4_base.s  - kinda like libc.a, but for ASM
-* stm32f4_inc.s   - cpu-specific defs included by the main code.
-* stm32f4.ld      - special defs required by the link stage
+* blink_inc.s          - the main code of interest
+* blink_stm32f4.s      - the cpu-specific entrypoint
+* startup_stm32f4.s    - kinda like libc.a, but for ASM
+* regs_stm32f4_inc.s   - cpu-specific defs included by the main code.
+* stm32f4.ld           - special defs required by the link stage
 
 # How to compile
 
@@ -68,7 +69,7 @@ For convenience, you'll probably want to make a script wrapper, "gdb-debug":
 
 Then in a window you want to debug in, you can then run
 
-	gdb-debug stm32f4_blink.elf
+	gdb-debug blink_stm32f4.elf
 	
 and do typical gdb debugging things. You might want to do something like
 

@@ -135,5 +135,3 @@ reset_handler:
 	b	main
 
 	
-gpioa_bsrr_addr:
-	.word 0x40020018

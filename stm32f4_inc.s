@@ -24,13 +24,16 @@
 	.equ	RCC_BASE, PERIPH_BASE_AHB1 + 0x3800
 
 	//Clock control for AHB1 peripherals (includes GPIO)
-	.equ	RCC_AHB1ENR,	(RCC_BASE + 0x30)
+	.equ    AHB1ENR_OFFSET, 0x30
+	.equ    AHB2ENR_OFFSET, 0x34
+	.equ	RCC_AHB1ENR,	(RCC_BASE + AHB1ENR_OFFSET)
+	.equ	RCC_AHB2ENR,	(RCC_BASE + AHB2ENR_OFFSET)
 
 
 	// #define _REG_BIT(base, bit)		(((base) << 5) + (bit))
 	// RCC_GPIOA       = _REG_BIT(0x30, 0),
 
-	.equ	RCC_GPIOA, 0x30 <<5
+	.equ	RCC_GPIOA, AHB1ENR_OFFSET <<5
 
 	// #define _RCC_REG(i)             MMIO32(RCC_BASE + ((i) >> 5))
 	// #define _RCC_BIT(i)             (1 << ((i) & 0x1f))
@@ -38,8 +41,8 @@
 	// rcc_periph_clock_enable(RCC_GPIOA);
         // _RCC_REG(RCC_GPIOA) |= _RCC_BIT(RCC_GPIOA);
 
-	.equ	RCC_REG_GPIOA, RCC_BASE + 0x30
-	.equ	RCC_BIT_GPIOA, 1 << ((0x30 <<5) & 0x1f)
+	.equ	RCC_REG_GPIOA, RCC_BASE + AHB1ENR_OFFSET
+	.equ	RCC_BIT_GPIOA, 1 << ((AHB1ENR_OFFSET <<5) & 0x1f)
 
 
 

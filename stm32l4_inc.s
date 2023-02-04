@@ -23,8 +23,10 @@
 	
 	.equ	RCC_BASE, PERIPH_BASE_AHB1 + 0x1000
 
-	.equ	AHB2ENR_OFFSET, 0x4c
 	//Clock control for AHB1 peripherals (includes GPIO)
+	.equ	AHB1ENR_OFFSET, 0x48
+	.equ	AHB2ENR_OFFSET, 0x4c
+	.equ	RCC_AHB1ENR,	(RCC_BASE + AHB1ENR_OFFSET)
 	.equ	RCC_AHB2ENR,	(RCC_BASE + AHB2ENR_OFFSET)
 
 

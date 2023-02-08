@@ -94,7 +94,7 @@
 	.equ	GPIOC_OTYPER,	GPIOC_BASE + 0x04 	//Set GPIO pin type as push-pull or open drain
 	.equ	GPIOC_OSPEEDR,	GPIOC_BASE + 0x08	//Set GPIO pin switching speed
 	.equ	GPIOC_PUPDR,	GPIOC_BASE + 0x0C	//Set GPIO pin pull-up/pull-down
-	.equ	GPIOC_IDR,	GPIOC_BASE + 0x1C	//Set GPIO pin pull-up/pull-down
+	.equ	GPIOC_IDR,	GPIOC_BASE + 0x10	//Set GPIO pin pull-up/pull-down
 	.equ	GPIOC_ODR,	GPIOC_BASE + 0x14	//GPIO pin output data
 	.equ	GPIOC_BSRR,	GPIOC_BASE + 0x18	// Bit Set/Reset
 

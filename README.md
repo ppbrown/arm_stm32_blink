@@ -10,6 +10,7 @@ ST Microelectronics
 * https://www.st.com/en/microcontrollers-microprocessors/stm32f4-series.html
 * https://www.st.com/en/microcontrollers-microprocessors/stm32f401.html
 * https://www.st.com/en/evaluation-tools/nucleo-f401re.html
+* https://os.mbed.com/platforms/ST-Nucleo-F401RE/
 
 (Note: now also supports Nucleo-L476RG, which is stm32l476 based)
 
@@ -27,9 +28,21 @@ Additionally, it is targetted for Linux as the developer desktop
 # Files of interest
 
 In this directory you should find the following files:
+    (substitute as needed for l4 instead of f4)
+
+Simple blink program
 
 * blink_inc.s          - the main code of interest
 * blink_stm32f4.s      - the cpu-specific entrypoint
+
+Button driven blink program
+
+* press_inc.s          - the main code of interest
+* press_stm32f4.s      - the cpu-specific entrypoint
+
+
+Common definitions
+
 * startup_stm32f4.s    - kinda like libc.a, but for ASM
 * regs_stm32f4_inc.s   - cpu-specific defs included by the main code.
 * stm32f4.ld           - special defs required by the link stage
@@ -88,7 +101,10 @@ you have to "set arch arm" explicitly. So you might want to install the ST.com
 
 and it seems slower.
 
-# See also
+# Original inspiration
+
+At this point, it's pretty much all my code. However, my original
+experiments were inspired by the following mostly C-based programs
 
 https://github.com/jrsa/stm32f4_blink         (C-code based blink app)
 

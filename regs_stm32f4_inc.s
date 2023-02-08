@@ -35,6 +35,8 @@
 	.equ	RCC_AHB2ENR,	(RCC_BASE + AHB2ENR_OFFSET)
 
 
+	.equ	RCC_GPIO_ENABLER,	RCC_AHB1ENR
+
 	.equ	RCC_GPIOA_EN, (1 <<0)
 	.equ	RCC_GPIOB_EN, (1 <<1)
 	.equ	RCC_GPIOC_EN, (1 <<2)

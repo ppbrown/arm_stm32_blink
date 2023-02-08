@@ -16,7 +16,7 @@
 
 	// enable clock for GPIOA
 asm_rcc_enable:	
-	ldr	r1, =RCC_AHB1ENR
+	ldr	r1, =RCC_GPIO_ENABLER
 	mov	r2, #RCC_GPIOA_EN
 	
 	ldr	r3, [r1]	// Load in values for all clocks

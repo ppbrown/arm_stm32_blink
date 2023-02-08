@@ -54,21 +54,14 @@ asm_gpio_set_A5_output:
 
 	
 	
-	// We specifically only toggle pin5 for GPIOA
+	// since we know all pins disabled except
+	// the one we care about, just easymode toggle
 asm_gpio_toggle:
 	ldr	r3, =GPIOA_ODR  // has port addr
 	ldr     r1, [r3]	// has port addr contents
 
-	ldr     r2, [r3]	// has port same
-	mvns    r2, r2		// has ~(port)
-	and.w   r1, r1, #GPIO5		// port & GPIO5
-	lsls    r1, r1, #16		// has (port & GPIO5) << 16
+	mvns    r1, r1		// has ~(port)
 
-	and.w   r2, r2, #GPIO5		// has ~port & GPIO5
-
-	orrs    r1, r2			// r1 has all the goodies
-
-	ldr	r3, =GPIOA_BSRR
 	str	r1, [r3]
 
 	bx      lr

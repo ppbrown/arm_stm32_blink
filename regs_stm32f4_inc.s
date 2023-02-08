@@ -29,12 +29,11 @@
 	//Clock control for AHB1 peripherals (includes GPIO)
 	.equ    AHB1ENR_OFFSET, 0x30
 	.equ    AHB2ENR_OFFSET, 0x34
+
+	
 	.equ	RCC_AHB1ENR,	(RCC_BASE + AHB1ENR_OFFSET)
 	.equ	RCC_AHB2ENR,	(RCC_BASE + AHB2ENR_OFFSET)
 
-
-	// #define _REG_BIT(base, bit)		(((base) << 5) + (bit))
-	// RCC_GPIOA       = _REG_BIT(0x30, 0),
 
 	.equ	RCC_GPIOA_EN, (1 <<0)
 	.equ	RCC_GPIOB_EN, (1 <<1)
@@ -65,7 +64,7 @@
 
 	.equ	GPIO_MODE_INPUT,  0x0
 	.equ	GPIO_MODE_OUTPUT, 0x1
-	.equ	GPIO_MODE_ALTF,   0x2
+	.equ	GPIO_MODE_AF,     0x2
 	.equ	GPIO_MODE_ANALOG, 0x3
 
 
@@ -77,7 +76,7 @@
 
 	
 //GPIO-A control registers
-	.equ	GPIOA_MODER,	GPIOA_BASE + 0x00	// GPIOA "mode register"
+	.equ	GPIOA_MODER,	GPIOA_BASE + 0x00	//set GPIO pin mode as Input/Output/Analog
 	.equ	GPIOA_OTYPER,	GPIOA_BASE + 0x04 	//Set GPIO pin type as push-pull or open drain
 	.equ	GPIOA_OSPEEDR,	GPIOA_BASE + 0x08	//Set GPIO pin switching speed
 	.equ	GPIOA_PUPDR,	GPIOA_BASE + 0x0C	//Set GPIO pin pull-up/pull-down

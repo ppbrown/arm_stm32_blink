@@ -51,7 +51,7 @@ asm_gpio_set_C13_input:
 	lsl	r1, #(13*2)	// "pin13, x2 bits"
 	str	r1, [r0]
 
-	ldr	r0, =GPIOA_PUPDR
+	ldr	r0, =GPIOC_PUPDR
 	mov 	r1, #GPIO_PUPD_PULLUP
 	lsl	r1, #(13*2)	// "pin13, x2 bits"
 	str	r1, [r0]

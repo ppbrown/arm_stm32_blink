@@ -48,15 +48,15 @@
 	
 	.equ	GPIO_BASE, PERIPH_BASE_AHB1
 
-	.equ	GPIOA_BASE, GPIO_BASE + 0x000	// GPIO port A (also "GPIO_PORT_A_BASE")
-	.equ	GPIOB_BASE, GPIO_BASE + 0x400	// GPIO port B (also "Base")
-	.equ	GPIOC_BASE, GPIO_BASE + 0x800	// GPIO port C (also "Base")
-	.equ	GPIOD_BASE, GPIO_BASE + 0xC00	// GPIO port D (also "Base")
-	.equ	GPIOE_BASE, GPIO_BASE + 0x1000	// GPIO port E (also "Base")
-	.equ	GPIOF_BASE, GPIO_BASE + 0x1400	// GPIO port F (also "Base")
+	.equ	GPIOA_BASE, GPIO_BASE + 0x000	// GPIO port A
+	.equ	GPIOB_BASE, GPIO_BASE + 0x400	// GPIO port B
+	.equ	GPIOC_BASE, GPIO_BASE + 0x800	// GPIO port C
+	.equ	GPIOD_BASE, GPIO_BASE + 0xC00	// GPIO port D
+	.equ	GPIOE_BASE, GPIO_BASE + 0x1000	// GPIO port E
+	// F4 has no GPIOF or G
+	.equ	GPIOH_BASE, GPIO_BASE + 0x1C00	// GPIO port H
 
-	.equ	GPIO5,	(1 << 5)	// GPIO ports, pin5
-	.equ	GPIO13,	(1 << 13)	// GPIO ports, pin13
+
 
 	// These have to be shifted over to the appropriate slots in the
 	// approprate GPIOx MODE register
@@ -76,8 +76,6 @@
 	.equ	GPIO_PUPD_PULLDOWN, 0x2
 
 	
-
-
 //GPIO-A control registers
 	.equ	GPIOA_MODER,	GPIOA_BASE + 0x00	// GPIOA "mode register"
 	.equ	GPIOA_OTYPER,	GPIOA_BASE + 0x04 	//Set GPIO pin type as push-pull or open drain
@@ -104,4 +102,24 @@
 //GPIO-D control registers
 	.equ	GPIOD_MODER,	GPIOD + 0x00	//set GPIO pin mode as Input/Output/Analog
 	// ...
+
+
+	// Masks to use with IDR or ODR registers
+
+	.equ	GPIO_PIN0, 	1
+	.equ	GPIO_PIN1, 	(1<<1)
+	.equ	GPIO_PIN2, 	(1<<2)
+	.equ	GPIO_PIN3, 	(1<<3)
+	.equ	GPIO_PIN4, 	(1<<4)
+	.equ	GPIO_PIN5, 	(1<<5)
+	.equ	GPIO_PIN6, 	(1<<6)
+	.equ	GPIO_PIN7, 	(1<<7)
+	.equ	GPIO_PIN8, 	(1<<8)
+	.equ	GPIO_PIN9, 	(1<<9)
+	.equ	GPIO_PIN10, 	(1<<10)
+	.equ	GPIO_PIN11, 	(1<<11)
+	.equ	GPIO_PIN12, 	(1<<12)
+	.equ	GPIO_PIN13, 	(1<<13)
+	.equ	GPIO_PIN14, 	(1<<14)
+	.equ	GPIO_PIN15, 	(1<<15)
 

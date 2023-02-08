@@ -35,32 +35,54 @@ asm_rcc_enable:
 	// be ugly and ignore prior settings.
 	// If we were nice we would merge with values for other pins
 asm_gpio_set_A5_output:
-	ldr	r0,=GPIOA_MODER
+	ldr	r0, =GPIOA_MODER
 	
 	mov 	r1, #GPIO_MODE_OUTPUT
 	lsl	r1, #(5*2)	// "pin5, x2 bits"
 	str	r1, [r0]
 
-	
-	ldr	r0,=GPIOA_PUPDR
-	mov 	r1, #GPIO_MODE_OUTPUT
+	ldr	r0, =GPIOA_PUPDR
+	mov 	r1, #GPIO_PUPD_PULLUP
 	lsl	r1, #(5*2)	// "pin5, x2 bits"
 	str	r1, [r0]
-	
-
 
 	bx	lr
 	
 
+		// Set the mode on the pins we want, to mode=output
+	// be ugly and ignore prior settings.
+	// If we were nice we would merge with values for other pins
+asm_gpio_set_C13_input:
+	ldr	r0, =GPIOC_MODER
 	
+	mov 	r1, #GPIO_MODE_INPUT
+	lsl	r1, #(13*2)	// "pin13, x2 bits"
+	str	r1, [r0]
+
+	ldr	r0, =GPIOA_PUPDR
+	mov 	r1, #GPIO_PUPD_PULLUP
+	lsl	r1, #(13*2)	// "pin13, x2 bits"
+	str	r1, [r0]
+
+	bx	lr
 	
-	// We specifically only toggle pin5 for GPIOA
+
+
+	// Cheat. Just reverse ALL pins, since
+	// we know all the things we dont care about
+	// are disabled anyway!
 asm_gpio_toggle:
 	ldr	r3, =GPIOA_ODR  // has port addr
 	ldr     r1, [r3]	// has port addr contents
 
+	// new
+	mvns    r1, r1		// has ~(port)
+
+	
+/*	
 	ldr     r2, [r3]	// has port same
 	mvns    r2, r2		// has ~(port)
+
 	and.w   r1, r1, #GPIO5		// port & GPIO5
 	lsls    r1, r1, #16		// has (port & GPIO5) << 16
 
@@ -69,7 +91,10 @@ asm_gpio_toggle:
 	orrs    r1, r2			// r1 has all the goodies
 
 	ldr	r3, =GPIOA_BSRR
+	*/
+
 	str	r1, [r3]
+	
 
 	bx      lr
 
@@ -77,17 +102,32 @@ asm_gpio_toggle:
 main:
 	bl	asm_rcc_enable
 	bl	asm_gpio_set_A5_output
+	bl	asm_gpio_set_C13_input
+
+
+	// Start with it "on", hopefully.
+	bl	asm_gpio_toggle
+
 loop1:
-	ldr	r0, =DELAY_INTERVAL
-loop2:
-	nop
-	sub	r0, #1
+	ldr	r0, =GPIOC_IDR
+	ldr	r1, [r0]
+	and	r1, #GPIO_PIN13
 	cmp	r0, #0
-	bge	loop2
+	bne	loop1
+
+	bl	asm_gpio_toggle
+
+loop2:
+	ldr	r0, =GPIOC_IDR
+	ldr	r1, [r0]
+	and	r1, #GPIO_PIN13
+	cmp	r0, #0
+	beq	loop2
 
 	bl	asm_gpio_toggle
 
 	b	loop1
+
 	
 	
 

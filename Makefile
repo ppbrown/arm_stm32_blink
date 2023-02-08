@@ -13,16 +13,21 @@ CFLAGS=-g  -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16
 LDFILE=-T$(CPU).ld
 #LDFILE=-Tnucleo-f401re.ld
 
-all:	blink_$(CPU).elf
+all:	blink_$(CPU).elf press_$(CPU).elf
 
 
 # The ASM files are so small, no point in having an intermediate
 # compile step for .o
 
-blink_$(CPU).elf: Makefile blink_$(CPU).s regs_$(CPU)_inc.s startup_$(CPU).s $(CPU).ld 
+blink_$(CPU).elf: Makefile blink_$(CPU).s blink_inc.s regs_$(CPU)_inc.s startup_$(CPU).s $(CPU).ld 
 	arm-none-eabi-gcc --static -nostartfiles $(LDFILE) \
 	-mthumb $(CFLAGS)  $(LDFLAGS) \
 	blink_$(CPU).s startup_$(CPU).s -o $@
+
+press_$(CPU).elf: Makefile press_$(CPU).s press_inc.s regs_$(CPU)_inc.s startup_$(CPU).s $(CPU).ld 
+	arm-none-eabi-gcc --static -nostartfiles $(LDFILE) \
+	-mthumb $(CFLAGS)  $(LDFLAGS) \
+	press_$(CPU).s startup_$(CPU).s -o $@
 
 
 

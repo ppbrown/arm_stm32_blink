@@ -59,16 +59,14 @@ asm_gpio_set_C13_input:
 	bx	lr
 	
 	
-	// since we know all pins disabled except
-	// the one we care about, just easymode toggle
 asm_led_toggle:
 	ldr	r3, =GPIOA_ODR  // has port addr
 	ldr     r1, [r3]	// has port addr contents
 
-	mvns    r1, r1		// has ~(port)
+	mov.w	r2, #GPIO_PIN5
+	eor	r1,r2
 
 	str	r1, [r3]
-
 	bx      lr
 
 
@@ -117,8 +115,8 @@ main:
 	bl	asm_gpio_set_C13_input
 
 	// Works fine if I call blinkonly. But buttoncheck does not
-	//b	blinkonly
-	b	buttoncheck
+	b	blinkonly
+	//b	buttoncheck
 	
 
 	/* This is called on first start, and if reset button pushed */

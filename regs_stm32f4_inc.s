@@ -9,10 +9,10 @@
 	 *
 	\********************************************************************/
 
-	//    https://www.st.com/resource/en/reference_manual/rm0368-stm32f401xbc-and-stm32f401xde-advanced-armbased-32bit-mcus-stmicroelectronics.pdf
+	// ST.com manual for the stm32f401: https://tinyurl.com/3828kujy
 
-
-	/* Future note: according to the board docs,
+	
+	/* note: according to the nucleo board docs,
 	 * "the user button is connected to the I/O PC13 (pin 2)  ..."
 	 * aka GPIOC13, 
 	 */

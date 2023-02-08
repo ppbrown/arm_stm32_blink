@@ -9,7 +9,9 @@
 	 *
 	\********************************************************************/
 
-	/* Future note: according to the board docs,
+	// ST.com manual for the stm32l476: https://tinyurl.com/3cpszdbt
+
+	/* note: according to the nucleo board docs,
 	 * "the user button is connected to the I/O PC13 (pin 2)  ..."
 	 * aka GPIOC13, 
 	 */

@@ -122,3 +122,9 @@ If for some reason you want to contribute straight ASM versions of the files for
 your own ARM board, feel free to put up a PR, and I'll be happy to review and
 consider it for inclusion, giving you credit
 
+
+# To Do
+
+This isnt a fully clean implementation of pure ASM.
+For example, the programs dont handle reset properly.
+(And I dont currently understand why. They dont use stack memory or anything else)

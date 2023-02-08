@@ -77,7 +77,6 @@ loop2:
 	bge	loop2
 	bx	lr
 
-// This works	
 blinkonly:	
 	bl	delay
 	bl	asm_led_toggle
@@ -85,7 +84,6 @@ blinkonly:
 	b	blinkonly
 	
 
-// This does not work
 buttoncheck:	
 	ldr	r0, =GPIOC_IDR
 	ldr	r1, [r0]
@@ -112,7 +110,6 @@ main:
 	bl	asm_gpio_set_A5_output
 	bl	asm_gpio_set_C13_input
 
-	// Works fine if I call blinkonly. But buttoncheck does not
 	//b	blinkonly
 	b	buttoncheck
 	

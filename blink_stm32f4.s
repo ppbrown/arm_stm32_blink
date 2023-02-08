@@ -27,16 +27,14 @@ asm_rcc_enable:
 	str	r3, [r1]
 	bx	lr
 
-	// Set the mode on the pins we want, to mode=output
-	// be ugly and ignore prior settings.
-	// If we were nice we would merge with values for other pins
+	// Set the mode on the GPIOA, pin 5, to mode=output
 asm_gpio_set_A5_output:
 	ldr	r0, =GPIOA_MODER
 	
 	mov 	r1, #GPIO_MODE_OUTPUT
 	lsl	r1, #(5*2)	// "pin5, x2 bits"
 	str	r1, [r0]
-
+	
 	ldr	r0, =GPIOA_PUPDR
 	mov 	r1, #GPIO_PUPD_PULLUP
 	lsl	r1, #(5*2)	// "pin5, x2 bits"
@@ -44,10 +42,8 @@ asm_gpio_set_A5_output:
 
 	bx	lr
 	
-
-		// Set the mode on the pins we want, to mode=output
-	// be ugly and ignore prior settings.
-	// If we were nice we would merge with values for other pins
+	
+	// Set the mode on the GPIOC, pin 13, to mode=input
 asm_gpio_set_C13_input:
 	ldr	r0, =GPIOC_MODER
 	
@@ -62,85 +58,56 @@ asm_gpio_set_C13_input:
 
 	bx	lr
 	
-
-
-	// Cheat. Just reverse ALL pins, since
-	// we know all the things we dont care about
-	// are disabled anyway!
-asm_gpio_toggle:
+	
+	// since we know all pins disabled except
+	// the one we care about, just easymode toggle
+asm_led_toggle:
 	ldr	r3, =GPIOA_ODR  // has port addr
 	ldr     r1, [r3]	// has port addr contents
 
-	// new
 	mvns    r1, r1		// has ~(port)
 
-	
-/*	
-	ldr     r2, [r3]	// has port same
-	mvns    r2, r2		// has ~(port)
-
-	and.w   r1, r1, #GPIO5		// port & GPIO5
-	lsls    r1, r1, #16		// has (port & GPIO5) << 16
-
-	and.w   r2, r2, #GPIO5		// has ~port & GPIO5
-
-	orrs    r1, r2			// r1 has all the goodies
-
-	ldr	r3, =GPIOA_BSRR
-	*/
-
 	str	r1, [r3]
-	
 
 	bx      lr
 
 
-blink1:
+delay:	
 	ldr	r0, =DELAY_INTERVAL
-blink2:
+loop2:
 	nop
 	sub	r0, #1
 	cmp	r0, #0
-	bge	blink2
+	bge	loop2
+	bx	lr
+	
+blinkonly:	
+	bl	delay
+	bl	asm_led_toggle
 
-	bl	asm_gpio_toggle
+	b	blinkonly
+	
 
-	b	blink1
+buttoncheck:	
+	ldr	r0, =GPIOC_IDR
+	ldr	r1, [r0]
+	and	r1, #GPIO_PIN13
+	cmp	r1, #0
+	bne	buttoncheck
 
+	bl	asm_led_toggle
 
+	b	buttoncheck
+	
 
 main:
 	bl	asm_rcc_enable
 	bl	asm_gpio_set_A5_output
 	bl	asm_gpio_set_C13_input
 
-
-	// Start with LED "on"
-	bl	asm_gpio_toggle
-
-	b	blink1
-
-button1:
-	ldr	r0, =GPIOC_IDR
-	ldr	r1, [r0]
-	and	r1, #GPIO_PIN13
-	cmp	r0, #0
-	bne	button1
-
-	bl	asm_gpio_toggle
-
-button2:
-	ldr	r0, =GPIOC_IDR
-	ldr	r1, [r0]
-	and	r1, #GPIO_PIN13
-	cmp	r0, #0
-	beq	button2
-
-	bl	asm_gpio_toggle
-
-	b	button1
-
-	
+	// Works fine if I call blinkonly. But buttoncheck does not
+	//b	blinkonly
+	b	buttoncheck
 	
 
 	/* This is called on first start, and if reset button pushed */

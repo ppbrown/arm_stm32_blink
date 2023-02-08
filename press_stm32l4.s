@@ -5,8 +5,8 @@
 
 	.thumb // Oddly, this allows NON-thumb instructions (ie: standard ARM)
 
-	.include "regs_stm32f4_inc.s"
+	.include "regs_stm32l4_inc.s"
 
 	// The actual program
-	.include "blink_inc.s"
+	.include "press_inc.s"
 

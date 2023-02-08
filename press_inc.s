@@ -1,8 +1,8 @@
 
 	// Make sure to .include this file, after declaring the right CPU headers
 
-	/* This program just loops and blinks the LED, 
-	 *  on an STM32 Nucleo series board
+	/* This program waits for a "User Button" press,
+	 * and the lights up the LED, on an STM32 Nucleo series board
 	 * Currently only f401RE and L476VG have been tested/supported
 	 */ 
 	
@@ -14,10 +14,11 @@
 	.global main
 
 
-	// enable clock for GPIOA
+	// enable clock for GPIOA and GPIOC
 asm_rcc_enable:	
 	ldr	r1, =RCC_AHB1ENR
 	mov	r2, #RCC_GPIOA_EN
+	orr	r2, #RCC_GPIOC_EN
 	
 	ldr	r3, [r1]	// Load in values for all clocks
 	orr	r3, r2		// just OR, since we KNOW we are adding bits only
@@ -39,6 +40,21 @@ asm_gpio_set_A5_output:
 
 	bx	lr
 	
+	
+	// Set the mode on the GPIOC, pin 13, to mode=input
+asm_gpio_set_C13_input:
+	ldr	r0, =GPIOC_MODER
+	
+	mov 	r1, #GPIO_MODE_INPUT
+	lsl	r1, #(13*2)	// "pin13, x2 bits"
+	str	r1, [r0]
+
+	ldr	r0, =GPIOC_PUPDR
+	mov 	r1, #GPIO_PUPD_PULLUP
+	lsl	r1, #(13*2)	// "pin13, x2 bits"
+	str	r1, [r0]
+
+	bx	lr
 	
 	
 asm_led_toggle:
@@ -68,12 +84,34 @@ blinkonly:
 	b	blinkonly
 	
 
+buttoncheck:	
+	ldr	r0, =GPIOC_IDR
+	ldr	r1, [r0]
+	and	r1, #GPIO_PIN13
+	cmp	r1, #0
+	bne	buttoncheck
+
+	bl	asm_led_toggle
+
+button2:	
+	ldr	r0, =GPIOC_IDR
+	ldr	r1, [r0]
+	and	r1, #GPIO_PIN13
+	cmp	r1, #0
+	beq	button2
+
+	bl	asm_led_toggle
+
+	b	buttoncheck
+	
 
 main:
 	bl	asm_rcc_enable
 	bl	asm_gpio_set_A5_output
+	bl	asm_gpio_set_C13_input
 
-	b	blinkonly
+	//b	blinkonly
+	b	buttoncheck
 	
 
 	/* This is called on first start, and if reset button pushed */

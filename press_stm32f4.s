@@ -8,5 +8,5 @@
 	.include "regs_stm32f4_inc.s"
 
 	// The actual program
-	.include "blink_inc.s"
+	.include "press_inc.s"
 

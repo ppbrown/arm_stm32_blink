@@ -67,21 +67,26 @@ asm_gpio_toggle:
 	bx      lr
 
 
-main:
-	bl	asm_rcc_enable
-	bl	asm_gpio_set_A5_output
-loop1:
+delay:	
 	ldr	r0, =DELAY_INTERVAL
 loop2:
 	nop
 	sub	r0, #1
 	cmp	r0, #0
 	bge	loop2
-
+	bx	lr
+	
+blinkonly:	
+	bl	delay
 	bl	asm_gpio_toggle
 
-	b	loop1
+	b	blinkonly
 	
+
+main:
+	bl	asm_rcc_enable
+	bl	asm_gpio_set_A5_output
+	b	blinkonly
 	
 
 	/* This is called on first start, and if reset button pushed */

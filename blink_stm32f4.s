@@ -80,7 +80,8 @@ loop2:
 	cmp	r0, #0
 	bge	loop2
 	bx	lr
-	
+
+// This works	
 blinkonly:	
 	bl	delay
 	bl	asm_led_toggle
@@ -88,12 +89,22 @@ blinkonly:
 	b	blinkonly
 	
 
+// This does not work
 buttoncheck:	
 	ldr	r0, =GPIOC_IDR
 	ldr	r1, [r0]
 	and	r1, #GPIO_PIN13
 	cmp	r1, #0
 	bne	buttoncheck
+
+	bl	asm_led_toggle
+
+button2:	
+	ldr	r0, =GPIOC_IDR
+	ldr	r1, [r0]
+	and	r1, #GPIO_PIN13
+	cmp	r1, #0
+	beq	button2
 
 	bl	asm_led_toggle
 

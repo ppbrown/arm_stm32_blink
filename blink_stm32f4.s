@@ -12,10 +12,6 @@
 
 
 
-	// Export functions so they can be called from other file
-	.global asm_rcc_enable
-	.global asm_gpio_set_mode_output
-	.global asm_gpio_toggle
 	.global reset_handler
 	.global main
 
@@ -99,34 +95,50 @@ asm_gpio_toggle:
 	bx      lr
 
 
+blink1:
+	ldr	r0, =DELAY_INTERVAL
+blink2:
+	nop
+	sub	r0, #1
+	cmp	r0, #0
+	bge	blink2
+
+	bl	asm_gpio_toggle
+
+	b	blink1
+
+
+
 main:
 	bl	asm_rcc_enable
 	bl	asm_gpio_set_A5_output
 	bl	asm_gpio_set_C13_input
 
 
-	// Start with it "on", hopefully.
+	// Start with LED "on"
 	bl	asm_gpio_toggle
 
-loop1:
+	b	blink1
+
+button1:
 	ldr	r0, =GPIOC_IDR
 	ldr	r1, [r0]
 	and	r1, #GPIO_PIN13
 	cmp	r0, #0
-	bne	loop1
+	bne	button1
 
 	bl	asm_gpio_toggle
 
-loop2:
+button2:
 	ldr	r0, =GPIOC_IDR
 	ldr	r1, [r0]
 	and	r1, #GPIO_PIN13
 	cmp	r0, #0
-	beq	loop2
+	beq	button2
 
 	bl	asm_gpio_toggle
 
-	b	loop1
+	b	button1
 
 	
 	

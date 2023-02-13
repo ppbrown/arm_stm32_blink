@@ -1,6 +1,16 @@
 /* Linker script for Nucleo F401RE  (STM32F411RE, 512K flash, 96K RAM). 
  *
- * */
+ * lifted from libopencm3
+ * 
+ * This file defines the program entrypoint
+ * It also defines the vector table, and related addresses such as:
+ * 
+ * _etext
+ * _data
+ * _ebss
+ * end
+ * _stack
+ */
 
 /* Define memory regions. */
 MEMORY

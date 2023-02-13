@@ -54,6 +54,10 @@ blocking_handler:
 	nop
 	b	blocking_handler
 
+
+/* For STM32F4, the table offsets are defined in
+   RM0368 Reference manual, "table 38"
+*/
 	
 vector_table:
   .word  _stack  // provided in stm32f4.ld
@@ -64,43 +68,43 @@ vector_table:
   .word  blocking_handler // MemManage_Handler
   .word  blocking_handler // BusFault_Handler
   .word  blocking_handler // UsageFault_Handler
-  .word  dummy_handler // debug handler?
+  .word  0		// debug handler? (Reserved)
 	
-  .word  0
-  .word  0
-  .word  0
+  .word  0		// Reserved
+  .word  0		// Reserved
+  .word  0		// Reserved
 	
-  .word  dummy_handler // SVC_Handler
-  .word  dummy_handler // DebugMon_Handler
-  .word  dummy_handler 
-  .word  dummy_handler // PendSV_Handler
-  .word  dummy_handler // SysTick_Handler
+  .word  dummy_handler	// SVC_Handler
+  .word  dummy_handler	// DebugMon_Handler
+  .word  0		// Reserved
+  .word  dummy_handler	// PendSV_Handler
+  .word  dummy_handler	// SysTick_Handler
 	
 
-	/* in theory, would have an interrupt-handler table here */
-  .word  dummy_handler // NVIC_WWDG
-  .word  dummy_handler // PVD
-  .word  dummy_handler // TAMP_STAMP
-  .word  dummy_handler // RTC_WKUP
-  .word  dummy_handler // FLASH
-  .word  dummy_handler // RTC
-  .word  dummy_handler // EXTI0
-  .word  dummy_handler // EXTI1
-  .word  dummy_handler // EXTI2
-  .word  dummy_handler // EXTI3
-  .word  dummy_handler // EXTI4
-  .word  dummy_handler // DMA1_STREAM0
-  .word  dummy_handler // DMA1_STREAM1
-  .word  dummy_handler // DMA1_STREAM2
-  .word  dummy_handler // DMA1_STREAM3
-  .word  dummy_handler // DMA1_STREAM4
-  .word  dummy_handler // DMA1_STREAM5
-  .word  dummy_handler // DMA1_STREAM6
-  .word  dummy_handler // ADC
-  .word  dummy_handler // CAN1_TX
-  .word  dummy_handler // CAN1_RX0
-  .word  dummy_handler // CAN1_RX1
-  .word  dummy_handler // CAN1_SCE
-  .word  dummy_handler // RTC_WKUP
-  .word  dummy_handler // RTC_WKUP
+/* This is start of "The Interrupt Handler Table" */
+  .word  dummy_handler	// NVIC_WWDG (Window Watchdog)
+  .word  dummy_handler	// PVD
+  .word  dummy_handler	// TAMP_STAMP
+  .word  dummy_handler	// RTC_WKUP
+  .word  dummy_handler	// FLASH
+  .word  dummy_handler	// RTC
+  .word  dummy_handler	// EXTI0
+  .word  dummy_handler	// EXTI1
+  .word  dummy_handler	// EXTI2
+  .word  dummy_handler	// EXTI3
+  .word  dummy_handler	// EXTI4
+  .word  dummy_handler	// DMA1_STREAM0
+  .word  dummy_handler	// DMA1_STREAM1
+  .word  dummy_handler	// DMA1_STREAM2
+  .word  dummy_handler	// DMA1_STREAM3
+  .word  dummy_handler	// DMA1_STREAM4
+  .word  dummy_handler	// DMA1_STREAM5
+  .word  dummy_handler	// DMA1_STREAM6
+  .word  dummy_handler	// ADC
+  .word  dummy_handler	// CAN1_TX
+  .word  dummy_handler	// CAN1_RX0
+  .word  dummy_handler	// CAN1_RX1
+  .word  dummy_handler	// CAN1_SCE
+  .word  dummy_handler	// RTC_WKUP
+  .word  dummy_handler	// RTC_WKUP
  // .. and more...

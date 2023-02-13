@@ -114,10 +114,4 @@ main:
 	b	buttoncheck
 	
 
-	/* This is called on first start, and if reset button pushed */
-	/* In theory, would clear out stack,etc. */
-reset_handler:
-	
-	b	main
-
 	

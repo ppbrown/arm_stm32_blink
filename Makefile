@@ -44,6 +44,9 @@ press_$(CPU).elf: Makefile press_$(CPU).s press_inc.s regs_$(CPU)_inc.s startup_
 blink_$(CPU).bin: blink_$(CPU).elf
 	arm-none-eabi-objcopy  -O binary  blink_$(CPU).elf  $@
 
+press_$(CPU).bin: blink_$(CPU).elf
+	arm-none-eabi-objcopy  -O binary  blink_$(CPU).elf  $@
+
 
 clean:
 	rm -f *.elf *.dump *.bin

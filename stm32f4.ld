@@ -3,7 +3,18 @@
  * lifted from libopencm3
  * 
  * This file defines the program entrypoint
- * It also defines the vector table, and related addresses such as:
+ *   (the reset_handler, which cleans up before calling user entrypoint)
+ *
+ * This file defines cpu-specific defs for things like rom/ram start addr and size.
+ * 
+ * It defines certain bin/elf type magical defs like
+ *   .text
+ *   .data
+ *   .bss
+ *
+ * It also defines the name of the vector_table pointer,
+ *  (which is fleshed out in startup_stm32xxxx)
+ *  and related named addresses such as:
  * 
  * _etext
  * _data
@@ -38,41 +49,6 @@ SECTIONS
 		. = ALIGN(4);
 	} >rom
 
-	/* C++ Static constructors/destructors, also used for __attribute__
-	 * ((constructor)) and the likes */
-	.preinit_array : {
-		. = ALIGN(4);
-		__preinit_array_start = .;
-		KEEP (*(.preinit_array))
-		__preinit_array_end = .;
-	} >rom
-	.init_array : {
-		. = ALIGN(4);
-		__init_array_start = .;
-		KEEP (*(SORT(.init_array.*)))
-		KEEP (*(.init_array))
-		__init_array_end = .;
-	} >rom
-	.fini_array : {
-		. = ALIGN(4);
-		__fini_array_start = .;
-		KEEP (*(.fini_array))
-		KEEP (*(SORT(.fini_array.*)))
-		__fini_array_end = .;
-	} >rom
-
-	/*
-	 * Another section used by C++ stuff, appears when using newlib with
-	 * 64bit (long long) printf support
-	 */
-	.ARM.extab : {
-		*(.ARM.extab*)
-	} >rom
-	.ARM.exidx : {
-		__exidx_start = .;
-		*(.ARM.exidx*)
-		__exidx_end = .;
-	} >rom
 
 	. = ALIGN(4);
 	_etext = .;
@@ -93,6 +69,7 @@ SECTIONS
 	_data_loadaddr = LOADADDR(.data);
 
 	.bss : {
+		_bss = .;
 		*(.bss*)	/* Read-write zero initialized data */
 		*(COMMON)
 		. = ALIGN(4);

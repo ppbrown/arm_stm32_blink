@@ -11,6 +11,7 @@
 
 	// ST.com manual for the stm32f401: https://tinyurl.com/3828kujy
 
+	// See also https://os.mbed.com/platforms/ST-Nucleo-F401RE/
 	
 	/* note: according to the nucleo board docs,
 	 * "the user button is connected to the I/O PC13 (pin 2)  ..."

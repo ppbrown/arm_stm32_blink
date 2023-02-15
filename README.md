@@ -1,4 +1,6 @@
-# Blink demo for stm32f4 series ARM chip, in pure Assembly Language
+# Blink demo and mini register library for stm32 ARM chip, in pure Assembly Language
+
+(Initially developed on stm32f4 series hardware)
 
 This is intended to be a starting point for general-case 
 Embedded ARM Assembly Programming
@@ -12,7 +14,7 @@ ST Microelectronics
 * https://www.st.com/en/evaluation-tools/nucleo-f401re.html
 * https://os.mbed.com/platforms/ST-Nucleo-F401RE/
 
-(Note: now also supports Nucleo-L476RG, which is stm32l476 based)
+It now also supports Nucleo-L476RG, which is stm32l476 cpu based)
 
 There are now multiple choices for C-code development, for ARM chips.
 "Keil", or STM's "CubeIDE" are just two of them. However, they arent
@@ -32,20 +34,22 @@ In this directory you should find the following files:
 
 Simple blink program
 
-* blink_inc.s          - the main code of interest
-* blink_stm32f4.s      - the cpu-specific entrypoint
+* blink.S          - the main code of interest
 
 Button driven blink program
 
-* press_inc.s          - the main code of interest
-* press_stm32f4.s      - the cpu-specific entrypoint
-
+* press.S          - the main code of interest
 
 Common definitions
 
-* startup_stm32f4.s    - kinda like libc.a, but for ASM
-* regs_stm32f4_inc.s   - cpu-specific defs included by the main code.
-* stm32f4.ld           - special defs required by the link stage
+* include/regs_$(CPU).s - Register definitions
+
+Linker requirements
+
+* ld/startup_$(CPU).s   - kinda like libc.a, but for ASM
+* $(CPU).ld             - special defs required by the link stage
+
+
 
 # How to compile
 
@@ -82,7 +86,7 @@ For convenience, you'll probably want to make a script wrapper, "gdb-debug":
 
 Then in a window you want to debug in, you can then run
 
-	gdb-debug blink_stm32f4.elf
+	gdb-debug blink_STM32F4.elf
 	
 and do typical gdb debugging things. You might want to do something like
 
@@ -117,14 +121,13 @@ https://gist.github.com/BobBurns/bb601d3432650073a8b4  "blinky.s" for Discovery 
 
 # Contributing
 
-I think i have made this somewhat extensible.
+I think I have made this somewhat extensible.
 If for some reason you want to contribute straight ASM versions of the files for 
 your own ARM board, feel free to put up a PR, and I'll be happy to review and
-consider it for inclusion, giving you credit
+consider it for inclusion, giving you credit.
+Please see the PORTING.md file
 
 
 # To Do
 
-This isnt a fully clean implementation of pure ASM.
-For example, the programs dont handle reset properly.
-(And I dont currently understand why. They dont use stack memory or anything else)
+(See TODO file)

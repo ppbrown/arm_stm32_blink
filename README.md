@@ -1,11 +1,11 @@
-# Blink demo and mini register library for stm32 ARM chip, in pure Assembly Language
+# Blink demo and pocket-sized register library for stm32 ARM chip, in pure Assembly Language
 
 (Initially developed on stm32f4 series hardware)
 
-This is intended to be a starting point for general-case 
+This is intended to be an intro for general-case 
 Embedded ARM Assembly Programming
 
-This demo is specifically coded on a stm32f401re CPU,
+These demos were initially coded on a stm32f401re CPU,
 (Cortex M4)
 shipped on a Nucleo-F-401RE board with an LED, sold by
 ST Microelectronics

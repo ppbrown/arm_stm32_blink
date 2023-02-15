@@ -14,8 +14,6 @@
 	.equ	DELAY_INTERVAL,	0x186004
 
 
-
-	.global reset_handler
 	.global main
 
 

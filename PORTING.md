@@ -1,8 +1,9 @@
 
 # Porting this code to other hardware
 
-Lets say you have a similar-but-different ARM32 hardware, and you want to
-have your own ASM blinker.
+Lets say you have some similar-but-different ARM32 hardware 
+(easiest would be another STM manufactured board), and you want to
+have your own ASM blinker program.
 
 One way to approach this, is similar to how I did the original port:
 Find C code that does the blink, then substutite functions bit by bit.
@@ -11,8 +12,8 @@ But, if you cant, or dont want to do that, then the strategy would be:
 
 1. Get technical spec on your hardware, with full register address details
 
-2. Create a version of include/regs_STM32F4_inc.s for your own hardware, substututing
-values as appropriate.
+2. Create a version of include/regs_STM32F4_inc.s for your own hardware, 
+substituting values as appropriate. (more on that lower down)
 
 For example, my board focuses around GPIOA, but many other boards
 instead use GPIOB for the onboard LED(s)

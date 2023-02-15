@@ -5,16 +5,15 @@ CPU=STM32F4
 #CPU=STM32L4
 
 CC=arm-none-eabi-gcc
-
 CPPFLAGS=-D$(CPU)
-
 CFLAGS=-g  -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -mthumb 
 
+LDFILE=ld/$(CPU).ld
+LDOBJS=ld/startup_$(CPU).s $(LDFILE)
 
 #LDFLAGS=-L./libopencm3/lib -L. -lopencm3_stm32f4 
+LDFLAGS=-T$(LDFILE) ld/startup_$(CPU).s 
 
-LDFILE=-T$(CPU).ld
-#LDFILE=-Tnucleo-f401re.ld
 
 all:	blink_$(CPU).elf #press_$(CPU).elf
 
@@ -22,15 +21,15 @@ all:	blink_$(CPU).elf #press_$(CPU).elf
 # The ASM files are so small, no point in having an intermediate
 # compile step for .o
 
-blink_$(CPU).elf: Makefile blink.S  regs_inc.S include/regs_$(CPU)_inc.s startup_$(CPU).s $(CPU).ld 
-	$(CC) --static -nostartfiles $(LDFILE) \
+blink_$(CPU).elf: Makefile blink.S  regs_inc.S include/regs_$(CPU)_inc.s $(LDOBJS)
+	$(CC) --static -nostartfiles \
 	$(CPPFLAGS) $(CFLAGS)  $(LDFLAGS) \
-	blink.S startup_$(CPU).s -o $@
+	blink.S -o $@
 
-press_$(CPU).elf: Makefile press.S  regs_inc.S include/regs_$(CPU)_inc.s startup_$(CPU).s $(CPU).ld 
-	arm-none-eabi-gcc --static -nostartfiles $(LDFILE) \
+press_$(CPU).elf: Makefile press.S  regs_inc.S include/regs_$(CPU)_inc.s $(LDOBJS)
+	arm-none-eabi-gcc --static -nostartfiles  \
 	$(CPPFLAGS) $(CFLAGS)  $(LDFLAGS) \
-	press.S startup_$(CPU).s -o $@
+	press.S  -o $@
 
 
 
